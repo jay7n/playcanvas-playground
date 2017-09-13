@@ -1,0 +1,64 @@
+{
+  "name": "playcanvas-playground",
+  "version": "1.0.0",
+  "description": "a demo project as a playground for exploring playcanvas in a structural way",
+  "main": "index.js",
+  "scripts": {
+    "build-play-canvas": "node build/build-play-canvas.js",
+    "build-all": "npm install; node build/build-all.js",
+    "prod": "node build/prod.js",
+    "dev": "node build/dev.js",
+    "watch": "webpack --progress --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "eslint --format \"node_modules/eslint-friendly-formatter\"",
+    "checkall": "eslint --format \"node_modules/eslint-friendly-formatter\" source/*.js",
+    "clean": "rm -r dist; rm -r third; rm -r node_modules; echo 'done\n'"
+  },
+  "keywords": [
+    "playcavas"
+  ],
+  "repository": {
+    "private": true
+  },
+  "author": "jay7n.li",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chalk": "^2.1.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^4.6.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "express": "^4.15.4",
+    "file-loader": "^0.11.2",
+    "fs-extra": "^4.0.1",
+    "google-closure-compiler": "^20170806.0.0",
+    "html-webpack-plugin": "^2.30.1",
+    "i": "^0.3.5",
+    "opn": "^5.1.0",
+    "ora": "^1.3.0",
+    "preprocessor": "^1.4.0",
+    "request": "^2.81.0",
+    "unzip": "^0.1.11",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.6",
+    "webpack-closure-compiler": "^2.1.5",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-hot-middleware": "^2.19.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
