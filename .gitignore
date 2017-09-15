@@ -1,3 +1,5 @@
 node_modules/
 dist
+dist.zip
 assets/3d-models/originals
+third/

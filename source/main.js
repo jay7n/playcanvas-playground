@@ -1,4 +1,7 @@
-import thrD from './3d'
+import d3 from './3d'
 
-var hDivApp = document.getElementById('app')
-thrD.setup(hDivApp)
+async function main() {
+    await d3.setup()
+}
+
+main()
