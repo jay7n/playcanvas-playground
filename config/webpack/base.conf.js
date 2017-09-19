@@ -12,7 +12,7 @@ module.exports = (function() {
         },
         output: {
             path: path.resolve(Conf.RootPath, 'dist'),
-            filename: 'js/[name].js',
+            filename: '[name].js',
         },
         resolve: {
             extensions: ['.js'],

@@ -8,7 +8,6 @@ var baseWebpackConfig = require('./base.conf')
 
 var devWebpackConfig = merge(baseWebpackConfig, {
     output: {
-        filename: '[name].[hash].js',
         publicPath: `http://${Conf.Dev.Host}:${Conf.Dev.Port}/`,
     } ,
     devtool: 'inline-source-map',
