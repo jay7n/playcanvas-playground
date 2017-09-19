@@ -6,6 +6,7 @@ import { underPath } from '@/utils/methods'
 // import { defineMyScript } from './interact'
 import { DefineOrbitCameScripts }  from './script.interact'
 import { loadMaterialFromUrl } from './loader'
+import { calcEntityAabb } from './utils'
 
 window.pc = pc
 
@@ -18,6 +19,7 @@ export class Stupid3DAppClass {
         this.camera = null
         this.light = null
         this.entity = null
+        this.entityAabb = null
     }
 
     // internal methods
@@ -25,6 +27,7 @@ export class Stupid3DAppClass {
     _initApp() {
         const app = new pc.Application(this.canvas, {
             mouse: new pc.Mouse(this.canvas),
+            touch: 'ontouchstart' in window ? new pc.TouchDevice(this.canvas) : null,
         })
 
         // fill the available space at full resolution
@@ -43,21 +46,6 @@ export class Stupid3DAppClass {
 
     _initScripts() {
         DefineOrbitCameScripts('my-orbit-camera-script')
-    }
-
-    _initCamera() {
-        const camera = new pc.Entity('camera')
-        camera.addComponent('camera', {
-            clearColor: new pc.Color(0, 0, 0)
-        })
-        camera.setPosition(0, 0, 3)
-        camera.lookAt(0,0,0)
-
-        camera.addComponent('script')
-        camera.script.create('my-orbit-camera-script')
-
-        this.app.root.addChild(camera) // camera needs to be added first, cuz scripts attached in entity will use it when get initialized
-        this.camera = camera
     }
 
     _initLight() {
@@ -95,20 +83,38 @@ export class Stupid3DAppClass {
         entity.addComponent('model', modelOptions)
         entity.setPosition(0,0,0)
 
+        this.entityAabb = calcEntityAabb(entity)
     }
+
+    _initCamera() {
+        const camera = new pc.Entity('camera')
+        camera.addComponent('camera', {
+            clearColor: new pc.Color(0, 0, 0)
+        })
+
+        const distance = this.app.touch ? 4 : 2.5
+        camera.setPosition(0, 0, distance + this.entityAabb.halfExtents.z)
+        camera.lookAt(0,0,0)
+
+        camera.addComponent('script')
+        camera.script.create('my-orbit-camera-script')
+
+        this.app.root.addChild(camera) // camera needs to be added first, cuz scripts attached in entity will use it when get initialized
+        this.camera = camera
+    }
+
 
     // # public methods
     //
     init() {
         this._initApp()
         this._initScripts()
-        this._initCamera()
         this._initLight()
         this._initEntity()
+        this._initCamera()
     }
 
     updateModelFromURL(modelURL) {
-        console.log(modelURL)
         return new Promise((resolve, reject) => {
             if (!_.isString(modelURL)) reject('no valid URL provided')
 
@@ -136,7 +142,6 @@ async function _create_entity(app) {
     }).then((asset) => {
         return loadMaterialFromUrl(app, underPath.assets('3d-models/ball/9016131/ball.json'))
             .then((material) => {
-                console.log(material)
                 return {material, asset}
             })
     }).then(({material, asset}) => {

@@ -1,4 +1,5 @@
 import mathjs from 'mathjs'
+import pc from 'play-canvas'
 
 export const PI = 3.1415926
 
@@ -32,4 +33,14 @@ export function axisRadiusToQuaternion(axis, radius, returnType = Array) {
 export function axisAngleToQuaternion(axis, angle, returnType = Array) {
     const raduis = angleToRadius(angle)
     return axisRadiusToQuaternion(axis, raduis, returnType)
+}
+
+export function calcEntityAabb(entity) {
+    const aabb = new pc.BoundingBox()
+    const mis = entity.model.meshInstances
+    for (const mi of mis ) {
+        aabb.add(mi.aabb)
+    }
+
+    return aabb
 }

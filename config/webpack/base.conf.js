@@ -86,7 +86,7 @@ module.exports = (function() {
             }),
 
             new HtmlWebpackPlugin({
-                title: 'Hello My Gril ~',
+                title: 'A Stupid 3D App ♞',
                 template: path.resolve(Conf.RootPath, 'source', 'index.html'),
                 inject: true,
                 minify: {
