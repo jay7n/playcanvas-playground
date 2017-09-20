@@ -81,7 +81,7 @@ function main() {
 
         options = options.join(' ')
 
-        const devServerBin = path.resolve(Conf.RootPath, 'node_modules', '.bin', 'webpack-dev-server')
+        const devServerBin = path.resolve(Conf.RootPath, 'node_modules', 'webpack-dev-server','bin', 'webpack-dev-server.js')
         let cmd = `node ${devServerBin} ${options}`
 
         // console.log(chalk.green(`now ready to exec cmd:\n\t${cmd}\n`))
@@ -90,7 +90,7 @@ function main() {
 
         const p = exec(cmd)
         p.stdout.on('data', (data) => console.log(chalk.green(data)))
-        p.stderr.on('data', (data) => console.log(chalk.red(data)))
+        p.stderr.on('data', (data) => console.log(chalk.yellow(data)))
     }
 }
 
