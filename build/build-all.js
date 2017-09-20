@@ -1,20 +1,9 @@
 let path = require('path')
-let {execSync} = require('child_process')
-
-const l = console.log
-const preset_node_modules = [
-    'fs-extra@4.0.2', 'chalk@2.1.0', 'ora@1.3.0'
-]
-
-preset_node_modules.map(module => {
-    l(`pre install node_module ${module} ... `)
-    execSync(`npm install --save-dev ${module}`)
-})
-
 let fse = require('fs-extra')
 let chalk = require('chalk')
 let ora = require('ora')
 
+const l = console.log
 let myconf = require('../config/conf')
 
 
@@ -22,22 +11,6 @@ function _do_with_report(s, func, desc) {
     s.start(chalk.green(desc))
     return func(s).then(() => {
         s.succeed()
-    })
-}
-
-function _exec_cmd(cmd) {
-    return new Promise((resolve, reject) => {
-        // exec(cmd, (err, stdout, stderr) => {
-        //     if (err) { reject(err) }
-        //     else if (stderr) {reject(stderr)}
-        //     else resolve()
-        // })
-        try{
-            execSync(cmd)
-            resolve()
-        } catch(err) {
-            reject(err)
-        }
     })
 }
 
@@ -52,15 +25,6 @@ function clean_up(s) {
     })
 }
 
-
-function install_node_modules(s) {
-    return new Promise((resolve) => {
-        _exec_cmd('npm install').then(() => {
-            resolve()
-        })
-    })
-}
-
 async function build_play_canvas_engine(s) {
     return new Promise((resolve) => {
         setTimeout(resolve, 1500)
@@ -70,7 +34,6 @@ async function build_play_canvas_engine(s) {
         return script(['\t'])
     })
 }
-
 
 async function build_prod(s) {
     return new Promise((resolve) => {
@@ -89,10 +52,9 @@ async function main() {
 
     const s = ora()
     try {
-        await _do_with_report(s, clean_up, '(1/4). clean up all relative libs... ')
-        await _do_with_report(s, install_node_modules, '(2/4). install node_modules... ')
-        await _do_with_report(s, build_play_canvas_engine, '(3/4). build playcanvas engine to the third ... (kill it & retry if this hangs ...)')
-        await _do_with_report(s, build_prod, '(4/4). build app production for first time ... ')
+        await _do_with_report(s, clean_up, '(1/3). clean up all relative libs... ')
+        await _do_with_report(s, build_play_canvas_engine, '(2/3). build playcanvas engine to the third ... (kill it & retry if this hangs ...)')
+        await _do_with_report(s, build_prod, '(3/3). build app production for first time ... ')
         l('\n')
         s.succeed(chalk.green('done.now you\'re all set !'))
     } catch(err) {
