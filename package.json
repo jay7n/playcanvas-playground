@@ -12,7 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "check": "eslint --format \"node_modules/eslint-friendly-formatter\"",
     "checkall": "eslint --format \"node_modules/eslint-friendly-formatter\" source/*.js",
-    "clean": "rm -r dist; rm -r third; rm -r node_modules; echo 'done\n'"
+    "clean": "rm -r dist; rm -r third; rm -r node_modules; echo 'done\n'",
+    "deploy": "node build/ftp-deploy.js"
   },
   "keywords": [
     "playcavas"
@@ -42,10 +43,12 @@
     "express": "^4.15.4",
     "file-loader": "^0.11.2",
     "fs-extra": "^4.0.1",
+    "ftp-deploy": "^1.2.2",
     "google-closure-compiler": "^20170806.0.0",
     "html-webpack-plugin": "^2.30.1",
     "i": "^0.3.5",
     "mathjs": "^3.16.3",
+    "node-dir": "^0.1.17",
     "opn": "^5.1.0",
     "ora": "^1.3.0",
     "preprocessor": "^1.4.0",
