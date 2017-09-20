@@ -3,7 +3,7 @@ var ora = require('ora')
 var chalk = require('chalk')
 var FtpDeploy = require('ftp-deploy')
 
-function deploy(spinner) {
+function _deploy(spinner) {
     var localRoot = path.join(__dirname, '..', 'dist')
     var remoteRoot = '/htdocs/playcanvas_demo/'
     var host = 'hz226350.ftp.aliapp.com'
@@ -32,7 +32,7 @@ function deploy(spinner) {
 async function main() {
     var spinner = ora()
     try {
-        await deploy(spinner)
+        await _deploy(spinner)
         spinner.succeed()
     } catch (err) {
         spinner.fail(chalk.red(err))

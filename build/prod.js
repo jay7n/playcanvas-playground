@@ -9,13 +9,10 @@ var webpackConfig = require('../config/webpack/prod.conf')
 
 var spinner = ora('building for production...')
 
-async function main() {
-    spinner.start()
-    await new Promise((resolve) => {
+function _build_prod(spinner) {
+    return new Promise((resolve, reject) => {
         webpack(webpackConfig, function(err, stats) {
-            spinner.stop()
-
-            if (err) throw err
+            if (err) reject(err)
 
             console.log(stats.toString({
                 colors: true,
@@ -25,10 +22,19 @@ async function main() {
                 chunkModules: false
             }, '\n'))
 
-            console.log(chalk.cyan('  Build complete.\n'))
             resolve()
         })
     })
+}
+
+async function main() {
+    try {
+        console.log(chalk.green('build production...'))
+        await _build_prod()
+        console.log(chalk.green('build production done.'))
+    } catch(err) {
+        console.log(chalk.red(err))
+    }
 }
 
 if (require.main === module) {
