@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-play-canvas": "node build/build-play-canvas.js",
-    "build-all": "npm install; node build/build-all.js",
+    "build-all": "node build/build-all.js",
     "prod": "node build/prod.js",
     "dev": "node build/dev.js",
     "watch": "webpack --progress --watch",
