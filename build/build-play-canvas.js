@@ -11,6 +11,8 @@ const myconf = require('../config/conf')
 
 // const repo_uri = 'https://github.com/playcanvas/engine/archive/master.zip'
 const repo_uri = 'https://codeload.github.com/playcanvas/engine/zip/stable'
+
+
 const local_path = path.resolve(myconf.RootPath, 'third', 'play-canvas')
 const repo_name = 'engine-stable' // this name is given by github
 const builtout_pc_name = 'index.js'

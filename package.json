@@ -54,6 +54,7 @@
     "preprocessor": "1.4.0",
     "request": "2.81.0",
     "unzip": "0.1.11",
+    "urijs": "^1.18.12",
     "url-loader": "0.5.9",
     "webpack": "3.5.6",
     "webpack-closure-compiler": "2.1.5",

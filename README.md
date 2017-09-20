@@ -1,14 +1,19 @@
 # PlayCanvasPlayGround
 
-## Required Node Version
-node = 7.6.0, npm = 4.1.2    
+## Prerequisites
+* node = 7.6.0 (npm = 4.1.2)    
 https://nodejs.org/download/release/v7.6.0/
 
-## Build
-under the project root path execute below commands
+* java (to [build play-canvas engine](https://github.com/playcanvas/engine#how-to-build))    
+https://java.com/en/download/
 
-* build for your 1st time
+
+## Build
+under the project root path your can choose to execute below commands
+
+* for your 1st time build
 ```
+npm install
 npm run build-all
 ```
 

@@ -5,7 +5,7 @@ var FtpDeploy = require('ftp-deploy')
 
 function _deploy(spinner) {
     var localRoot = path.join(__dirname, '..', 'dist')
-    var remoteRoot = '/htdocs/playcanvas_demo/'
+    var remoteRoot = '/htdocs/playcanvasplayground/demo/'
     var host = 'hz226350.ftp.aliapp.com'
     var ftpDeploy = new FtpDeploy()
 
