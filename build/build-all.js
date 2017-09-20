@@ -1,12 +1,22 @@
-const path = require('path')
-const fse = require('fs-extra')
-const chalk = require('chalk')
-const ora = require('ora')
-const {execSync} = require('child_process')
-
-const myconf = require('../config/conf')
+let path = require('path')
+let {execSync} = require('child_process')
 
 const l = console.log
+const preset_node_modules = [
+    'fs-extra@4.0.2', 'chalk@2.1.0', 'ora@1.3.0'
+]
+
+preset_node_modules.map(module => {
+    l(`pre install node_module ${module} ... `)
+    execSync(`npm install --save-dev ${module}`)
+})
+
+let fse = require('fs-extra')
+let chalk = require('chalk')
+let ora = require('ora')
+
+let myconf = require('../config/conf')
+
 
 function _do_with_report(s, func, desc) {
     s.start(chalk.green(desc))
@@ -81,7 +91,7 @@ async function main() {
     try {
         await _do_with_report(s, clean_up, '(1/4). clean up all relative libs... ')
         await _do_with_report(s, install_node_modules, '(2/4). install node_modules... ')
-        await _do_with_report(s, build_play_canvas_engine, '(3/4). build playcanvas engine to the third ... (if this hangs, try again)')
+        await _do_with_report(s, build_play_canvas_engine, '(3/4). build playcanvas engine to the third ... (kill it & retry if this hangs ...)')
         await _do_with_report(s, build_prod, '(4/4). build app production for first time ... ')
         l('\n')
         s.succeed(chalk.green('done.now you\'re all set !'))
