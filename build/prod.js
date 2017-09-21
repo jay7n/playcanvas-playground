@@ -35,7 +35,7 @@ function _start_server(port) {
         app.use('/', express.static(path.resolve(Conf.RootPath, 'dist')))
         app.listen(port, function(err) {
             if (err) reject(err)
-            opn('http://127.0.0.1:8087')
+            opn(`http://127.0.0.1:${port}`)
             resolve()
         })
     })
@@ -57,7 +57,7 @@ async function main(args) {
             console.log(chalk.green('build production done.'))
         }
         if (has_server_arg) {
-            const port = args.port || 8087
+            const port = args.port || Conf.Prod.Port
             await _start_server(port)
             console.log(chalk.green(`start server listening at port ${port} ... `))
         }

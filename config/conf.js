@@ -8,6 +8,10 @@ module.exports = {
         Port:8086
     },
 
+    Prod: {
+        Port: 9527
+    },
+
     AutoOpenBrowser: true,
 
     HMR: false

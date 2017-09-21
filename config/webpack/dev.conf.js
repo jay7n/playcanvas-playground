@@ -13,7 +13,7 @@ var devWebpackConfig = merge(baseWebpackConfig, {
     devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Hello My Gril Dev ~',
+            title: 'A Stupid 3D App Dev ♘',
             template: path.resolve(Conf.RootPath, 'source', 'index.html'),
             inject: true,
             chunksSortMode: 'dependency'
