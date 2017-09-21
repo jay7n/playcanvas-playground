@@ -5,7 +5,7 @@ module.exports = {
 
     Dev: {
         Host: '127.0.0.1',
-        Port:8086
+        Port:9526
     },
 
     Prod: {
