@@ -1,0 +1,9 @@
+{
+    "diffuse": [1.000000, 1.000000, 1.000000],
+    "diffuseMap": "../58c9a7a5-96f7-492f-89a3-83b4cb60ee89/58c9a7a5-96f7-492f-89a3-83b4cb60ee89.png",
+    "diffuseMapTiling": [1.000000, 1.000000],
+    "mapping_format": "path",
+    "normalMap": "../4342038b-0ab6-4f05-92c6-d6fe656d52e4/4342038b-0ab6-4f05-92c6-d6fe656d52e4.png",
+    "normalMapTiling": [1.000000, 1.000000],
+    "cull": 2
+}

@@ -10,14 +10,14 @@ export function DefineOrbitCameScripts(scriptName) {
         factor = factor * -1
         const angsAround = this.anglesAroundXY
 
-        angsAround.x = pc.math.clamp(angsAround.x + (currentPos.y - previousPos.y) * factor, -90, 90)
+        angsAround.x = pc.math.clamp(angsAround.x + (currentPos.y - previousPos.y) * factor, -89.5, 89.5)
         angsAround.y = (angsAround.y + (currentPos.x - previousPos.x) * factor) % 360
 
-        const quat = new pc.Quat().setFromEulerAngles(angsAround.x, angsAround.y, 0)
-        const pos = quat.transformVector(this.initialPos)
+        this.quat = new pc.Quat().setFromEulerAngles(angsAround.x, angsAround.y, 0)
+        const pos = this.quat.transformVector(this.initialPos)
 
         this.entity.setPosition(pos)
-        this.entity.lookAt(0,0,0)
+        this.entity.lookAt(this.lookAt)
     }
 
 
@@ -31,6 +31,8 @@ export function DefineOrbitCameScripts(scriptName) {
             touchSensitivity: 0.3,
             anglesAroundXY: new pc.Vec2(),
             initialPos: this.entity.getPosition().clone(),
+            quat: null,
+            lookAt: new pc.Vec3(0,0,0),
         })
 
         // listen Mouse Events
@@ -43,6 +45,10 @@ export function DefineOrbitCameScripts(scriptName) {
             this.app.touch.on(pc.EVENT_TOUCHSTART, this.onTouchStartEndCancel, this)
             this.app.touch.on(pc.EVENT_TOUCHMOVE, this.onTouchMove, this)
         }
+
+        pc.events.attach(this)
+
+        this.on('focus', this.onFocus, this)
     }
 
     OrbitCameraScript.prototype.onMouseDown = function(event) {
@@ -82,4 +88,15 @@ export function DefineOrbitCameScripts(scriptName) {
         this.touchPreviousPos.y = touch.y
     }
 
+    OrbitCameraScript.prototype.onFocus = function(lookAt) {
+        this.initialPos = this.entity.getPosition().clone()
+        this.lookAt = lookAt.clone()
+
+        if (this.quat) {
+            const pos = this.quat.transformVector(this.initialPos)
+
+            this.entity.setPosition(pos)
+            this.entity.lookAt(lookAt)
+        }
+    }
 }

@@ -38,9 +38,25 @@ export function axisAngleToQuaternion(axis, angle, returnType = Array) {
 export function calcEntityAabb(entity) {
     const aabb = new pc.BoundingBox()
     const mis = entity.model.meshInstances
+    aabb.copy(mis[0].aabb)
     for (const mi of mis ) {
+        console.log(aabb, mi.aabb)
         aabb.add(mi.aabb)
     }
 
+    console.log(aabb)
     return aabb
+}
+
+export function focusCameraOnEntity(camera, entityAabb, isTouchDevice) {
+    const halfExtents = entityAabb.halfExtents
+    console.log(halfExtents)
+    let distance = Math.max(halfExtents.x, Math.max(halfExtents.y, halfExtents.z))
+    distance = (distance / Math.tan(0.5 * camera.camera.fov * pc.math.DEG_TO_RAD)) * 2
+    console.log(distance)
+    const cameraPos = entityAabb.center.clone()
+    const extraDistance = isTouchDevice ? 10 : 80
+    cameraPos.z += distance + extraDistance
+    camera.setPosition(cameraPos)
+    camera.lookAt(entityAabb.center)
 }
