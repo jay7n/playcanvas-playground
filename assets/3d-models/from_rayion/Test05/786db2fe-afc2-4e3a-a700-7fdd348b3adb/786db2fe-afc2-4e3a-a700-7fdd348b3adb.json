@@ -1,7 +1,0 @@
-{
-    "diffuse": [1.000000, 1.000000, 1.000000],
-    "diffuseMapTiling": [1.000000, 1.000000],
-    "mapping_format": "path",
-    "specular": [1.000000, 1.000000, 1.000000],
-    "specularAntialias": true
-}

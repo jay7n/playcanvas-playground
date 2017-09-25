@@ -40,23 +40,56 @@ export function calcEntityAabb(entity) {
     const mis = entity.model.meshInstances
     aabb.copy(mis[0].aabb)
     for (const mi of mis ) {
-        console.log(aabb, mi.aabb)
         aabb.add(mi.aabb)
     }
 
-    console.log(aabb)
     return aabb
 }
 
 export function focusCameraOnEntity(camera, entityAabb, isTouchDevice) {
     const halfExtents = entityAabb.halfExtents
-    console.log(halfExtents)
     let distance = Math.max(halfExtents.x, Math.max(halfExtents.y, halfExtents.z))
     distance = (distance / Math.tan(0.5 * camera.camera.fov * pc.math.DEG_TO_RAD)) * 2
-    console.log(distance)
     const cameraPos = entityAabb.center.clone()
-    const extraDistance = isTouchDevice ? 10 : 80
+    const extraDistance = isTouchDevice ? -0.5 : -0.5
+    // const extraDistance = isTouchDevice ? -1 : -1
     cameraPos.z += distance + extraDistance
     camera.setPosition(cameraPos)
     camera.lookAt(entityAabb.center)
+}
+
+export function createCubeMap(app, name, ddsURL, textureMapURLs) {
+    return new Promise((resolve, reject) => {
+        const textures = textureMapURLs.map(function(v, i) {
+            var asset = new pc.Asset(
+                name + '-' + i, 'texture',
+                { url: v }
+            )
+            app.assets.add(asset)
+            return asset.id
+        })
+
+        const cubeMap = new pc.Asset(
+            name,
+            'cubemap',
+            // { url: ddsURL },
+            null,
+            {
+                anisotropy: 1,
+                magFilter: 1,
+                minFilter: 5,
+                rgbm: true,
+                textures: textures,
+            }
+        )
+        // cubeMap.loadFaces = true
+
+        app.assets.on('load:'+cubeMap.id, (asset) => {
+            console.log('im loaded')
+            app.assets.add(asset)
+            // app.scene.setSkybox(asset.resources)
+            resolve(asset)
+        })
+        app.assets.load(cubeMap)
+    })
 }

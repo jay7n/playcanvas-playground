@@ -1,0 +1,8 @@
+{
+    "textures": ["../9241039/Helipad_posx.png", "../9241037/Helipad_negx.png", "../9241038/Helipad_posy.png", "../9241041/Helipad_negy.png", "../9241042/Helipad_posz.png", "../9241040/Helipad_negz.png"],
+    "magFilter": 1,
+    "minFilter": 5,
+    "anisotropy": 1,
+    "name": "Helipad",
+    "rgbm": true
+}
