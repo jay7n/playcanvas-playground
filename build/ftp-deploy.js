@@ -3,12 +3,23 @@ var ora = require('ora')
 var chalk = require('chalk')
 var FtpDeploy = require('ftp-deploy')
 
-var localRoot = path.join(__dirname, '..', 'dist')
-var remoteRelRoot = 'playcanvasplayground/demo/'
-var remoteAbsRoot = `/htdocs/${remoteRelRoot}`
-var host = 'hz226350.ftp.aliapp.com'
-var wwwRoot = 'http://demo.ubiray.com/'
-var www = `${wwwRoot}/${remoteRelRoot}`
+var Conf = null
+try {
+    Conf = require(path.join(__dirname, '../config/conf'))
+} catch (e) {
+    Conf = require('./ftp-deploy-config')
+}
+
+var localRoot = Conf.FtpDeploy.Dist.Local
+var remoteRoot = Conf.FtpDeploy.Dist.Remote
+var www = Conf.FtpDeploy.WWW
+var host = Conf.FtpDeploy.Host
+
+// var remoteRelRoot = 'playcanvasplayground/demo/'
+// var remoteAbsRoot = `/htdocs/${remoteRelRoot}`
+// var host = 'hz226350.ftp.aliapp.com'
+// var wwwRoot = 'http://demo.ubiray.com/'
+// var www = `${wwwRoot}/${remoteRelRoot}`
 var ftpDeploy = new FtpDeploy()
 
 
@@ -17,14 +28,15 @@ function _deploy(spinner) {
     var config = {
         host,
         localRoot,
-        remoteRoot: remoteAbsRoot,
+        remoteRoot,
         username: "hz226350",
         password: "RayIon2016", // optional, prompted if none given
         port: 21,
-        exclude: ['.git', '.idea', 'tmp/*', 'build/*', '.DS_Store']
+        exclude: ['.git', '.idea', 'tmp/*', 'build/*', '.DS_Store',
+            'ftp-deploy.js', 'ftp-deploy-config.js', 'node_modules/*', 'package.json']
     }
 
-    spinner.start(`deploying: ${chalk.green(localRoot)} --> ${chalk.green(host)}: ${chalk.green(remoteAbsRoot)}`)
+    spinner.start(`deploying: ${chalk.green(localRoot)} --> ${chalk.green(host)}: ${chalk.green(remoteRoot)}`)
 
     return new Promise((resolve, reject) => {
         ftpDeploy.deploy(config, function(err) {

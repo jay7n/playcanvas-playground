@@ -14,5 +14,14 @@ module.exports = {
 
     AutoOpenBrowser: true,
 
-    HMR: false
+    HMR: false,
+
+    FtpDeploy: {
+        Dist: {
+            Local: path.join(__dirname, '..', 'dist'),
+            Remote: '/htdocs/playcanvasplayground/demo/',
+        },
+        Host: 'hz226350.ftp.aliapp.com',
+        WWW: 'http://demo.ubiray.com/playcanvasplayground/demo/'
+    }
 }

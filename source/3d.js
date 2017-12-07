@@ -129,7 +129,7 @@ export class Stupid3DAppClass {
         if (!camera) {
             camera = new pc.Entity('camera')
             camera.addComponent('camera', {
-                clearColor: new pc.Color(0.8, 0.8, 0.8)
+                clearColor: new pc.Color(0.8, 0.8, 0, 0)
             })
             this.app.root.addChild(camera) // camera needs to be added first, cuz scripts attached in entity will use it when get initialized
 

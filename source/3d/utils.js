@@ -51,7 +51,7 @@ export function focusCameraOnEntity(camera, entityAabb, isTouchDevice) {
     let distance = Math.max(halfExtents.x, Math.max(halfExtents.y, halfExtents.z))
     distance = (distance / Math.tan(0.5 * camera.camera.fov * pc.math.DEG_TO_RAD)) * 2
     const cameraPos = entityAabb.center.clone()
-    const extraDistance = isTouchDevice ? -0.5 : -0.5
+    const extraDistance = isTouchDevice ? 5 : 0
     // const extraDistance = isTouchDevice ? -1 : -1
     cameraPos.z += distance + extraDistance
     camera.setPosition(cameraPos)
