@@ -1,6 +1,6 @@
 import { underPath } from '@/utils/methods'
 
-async function _loadFromUrl(app, type, url) {
+async function loadFromUrl(app, type, url) {
     return new Promise((resolve, reject) => {
         app.assets.loadFromUrl(url, type, (err, asset) => {
             if (err) {
@@ -12,9 +12,9 @@ async function _loadFromUrl(app, type, url) {
     })
 }
 
-export async function loadMaterialFromUrl(app, url) {
+async function loadMaterialFromUrl(app, url) {
     return new Promise((resolve, reject) => {
-        _loadFromUrl(app, 'texture', underPath.assets('3d-models/ball/9016139/Sphere.png')) // TODO: make it dynamically
+        loadFromUrl(app, 'texture', underPath.assets('3d-models/ball/9016139/Sphere.png')) // TODO: make it dynamically
             .then((texture) => {
                 app.assets.loadFromUrl(url, 'material', (err, asset) => {
                     if (err) {
@@ -27,4 +27,8 @@ export async function loadMaterialFromUrl(app, url) {
                 })
             })
     })
+}
+
+export {
+    loadMaterialFromUrl,
 }

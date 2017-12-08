@@ -8,20 +8,20 @@ import { calcEntityAabb, focusCameraOnEntity, createCubeMap } from './3d/utils'
 
 window.pc = pc
 
+
 export class Stupid3DAppClass {
 
     constructor(canvas) {
-        this.canvas = canvas
-
-        this.app = null
-        this.camera = null
-        this.light = null
-        this.entity = null
-        this.entityAabb = null
+        Object.assign(this, {
+            canvas: canvas,
+            app: null,
+            camera: null,
+            light: null,
+            entity: null,
+            entityAabb: null,
+        })
     }
 
-    // internal methods
-    //
     _initApp() {
         const app = new pc.Application(this.canvas, {
             mouse: new pc.Mouse(this.canvas),
@@ -146,13 +146,9 @@ export class Stupid3DAppClass {
         }
     }
 
-
-    // # public methods
-    //
     async init() {
         this._initApp()
         await this._initScene().then(() => {
-            console.log('eeeeeeee')
             this._initScripts()
             this._initLight()
             this._initEntity()
